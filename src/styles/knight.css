@@ -1,0 +1,17 @@
+.knight {
+    height: 100px;
+    width: auto;
+}
+
+.knight .down {
+    transform: rotate(90deg);
+}
+
+.knight .left {
+    transform: rotate(180deg) scaleY(-1);
+}
+
+.knight .up {
+    transform: rotate(270deg);
+}
+

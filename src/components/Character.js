@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
+import Knight from '../assets/knight1.png'
+import '../styles/knight.css'
 
 
 const Character = (props) => {
@@ -25,8 +27,9 @@ const Character = (props) => {
         })
     }, [])
 
+    let class_name = "knight " + props.direction
     return (
-        <h2>{props.direction}</h2>
+        <img src={Knight} className={class_name}/>
     )
 }
 
