@@ -29,7 +29,9 @@ const Character = (props) => {
 
     let class_name = "knight " + props.direction
     return (
-        <img src={Knight} className={class_name}/>
+        <div>
+            <img src={Knight} className={class_name}/>
+        </div>
     )
 }
 
