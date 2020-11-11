@@ -8,36 +8,25 @@ import '../styles/knight.css'
 const Character = (props) => {
     useEffect(() => {
         document.addEventListener('keydown', event => {
-            switch (event.key) {
-                case "ArrowUp":
-                    props.updateDirection("up")
-                    break
-                case "ArrowDown":
-                    props.updateDirection("down")
-                    break
-                case "ArrowLeft":
-                    props.updateDirection("left")
-                    break                
-                case "ArrowRight":
-                    props.updateDirection("right")
-                    break
-                default:
-                    break
-            }
+            props.handleKeypress(event.key)
         })
     }, [])
 
     let class_name = "knight " + props.direction
+    let left = 100*props.x + 'px'
+    let top = (100*props.y + 100) + 'px'
     return (
         <div>
-            <img src={Knight} className={class_name}/>
+            <img style={{left, top, position:'absolute'}} src={Knight} className={class_name}/>
         </div>
     )
 }
 
 function mapStateToProps(state) {
     return {
-        direction: state.direction
+        direction: state.position.direction,
+        x: state.position.x,
+        y: state.position.y,
     }
 }
 

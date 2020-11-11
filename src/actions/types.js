@@ -1,1 +1,1 @@
-export const UPDATE_DIRECTION = 'update_direction'
+export const HANDLE_KEYPRESS = 'handle_keypress'

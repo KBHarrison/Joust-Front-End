@@ -3,15 +3,15 @@
     width: auto;
 }
 
-.knight.down {
+.knight.ArrowDown {
     transform: rotate(90deg);
 }
 
-.knight.left {
+.knight.ArrowLeft {
     transform: rotate(180deg) scaleY(-1);
 }
 
-.knight.up {
+.knight.ArrowUp {
     transform: rotate(270deg);
 }
 

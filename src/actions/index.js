@@ -1,8 +1,8 @@
-import { UPDATE_DIRECTION } from "./types";
+import { HANDLE_KEYPRESS } from "./types";
 
-export function updateDirection(direction) {
+export function handleKeypress(direction) {
     return {
-        type: UPDATE_DIRECTION,
+        type: HANDLE_KEYPRESS,
         payload: direction
     }
 }

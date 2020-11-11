@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import directionReducer from './direction'
+import positionReducer from './position'
 
 const reducers = combineReducers({
-    direction: directionReducer
+    position: positionReducer
 })
 
 export default reducers
