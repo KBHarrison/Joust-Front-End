@@ -6,27 +6,20 @@ import '../styles/knight.css'
 
 
 const Character = (props) => {
-    useEffect(() => {
-        document.addEventListener('keydown', event => {
-            props.handleKeypress(event.key)
-        })
-    }, [])
-
-    let class_name = "knight " + props.direction
-    let left = 100*props.x + 'px'
-    let top = (100*props.y + 100) + 'px'
+    let class_name = "knight " + props.id +  " " + props.position[props.id].direction
+    let left = 50*props.position[props.id].x + 'px'
+    let top = (50*props.position[props.id].y + 100) + 'px'
     return (
         <div>
-            <img style={{left, top, position:'absolute'}} src={Knight} className={class_name}/>
+            {/* <h4>Player {props.id + 1}</h4> */}
+            <img style={{left, top, position:'absolute'}} title={"Player " + (props.id + 1)} src={Knight} className={class_name}/>
         </div>
     )
 }
 
 function mapStateToProps(state) {
     return {
-        direction: state.position.direction,
-        x: state.position.x,
-        y: state.position.y,
+        position: state.position
     }
 }
 

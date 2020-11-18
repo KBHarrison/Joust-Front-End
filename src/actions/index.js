@@ -1,4 +1,4 @@
-import { HANDLE_KEYPRESS } from "./types";
+import { CHECK_COLLISION, HANDLE_KEYPRESS } from "./types";
 
 export function handleKeypress(direction) {
     return {
