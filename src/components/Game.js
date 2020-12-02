@@ -15,19 +15,25 @@ const Game = (props) => {
     let p1Health = []
     let p2health = []
     for (let i = 0; i < props.health[0]; i++) {
-        p1Health.push(<img src={Heart} style={{height: '40px', width: '40px'}} key={i}></img>)
+        p1Health.push(<img className="health" src={Heart} style={{height: '40px', width: '40px'}} key={i}></img>)
     }
     for (let i = 0; i < props.health[1]; i++) {
-        p2health.push(<img src={Heart} style={{height: '40px', width: '40px'}} key={i}></img>)
+        p2health.push(<img className="health" src={Heart} style={{height: '40px', width: '40px'}} key={i}></img>)
     }
     return (
-    <div class="container">
-        <h1 class="float-right">Player 1 Health: {p1Health}</h1>
-        <h1 class="float-left">Player 2 Health: {p2health}</h1>
-        <Character
-        id={0} />
-        <Character 
-        id={1} />
+    <div className="grid-container">
+        <div className="grid-row">
+                <h1>Player 1 Health: {p1Health}</h1>
+        </div>
+        <div className="grid-row">
+                <h1>Player 2 Health: {p2health}</h1>
+        </div>
+        <div className="game-box">
+            <Character
+            id={0} />
+            <Character 
+            id={1} />
+        </div>
     </div>)
 
 }

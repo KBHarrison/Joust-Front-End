@@ -32,14 +32,26 @@
     margin-left: 25px;
 }
 
-.container {
+.health {
+    margin-left: 5px;
+}
+
+.game-box {
+    border-style: solid;
+    border-color: red;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    height: 35vw;
     position: relative;
 }
 
-.float-left {
-    float: left;
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 10px;
 }
 
-.float-right {
-    float: right;
+.grid-row {
+    text-align: center;
 }
+

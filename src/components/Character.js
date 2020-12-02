@@ -7,11 +7,11 @@ import '../styles/knight.css'
 
 const Character = (props) => {
     let class_name = "knight " + props.id +  " " + props.position[props.id].direction
-    let left = 50*props.position[props.id].x + 'px'
-    let top = (50*props.position[props.id].y + 100) + 'px'
+    let left = 5*props.position[props.id].x - 1 + '%'
+    let top = (5*props.position[props.id].y) + '%'
     return (
         <div style={{left, top, position:'absolute'}}>
-            <span class="label">Player {props.id + 1}</span>
+            <span className="label">Player {props.id + 1}</span>
             <img  title={"Player " + (props.id + 1)} src={Knight} className={class_name}/>
         </div>
     )
