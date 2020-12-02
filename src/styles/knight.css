@@ -26,3 +26,20 @@
 .knight.w {
     transform: rotate(270deg);
 }
+
+.label {
+    position: absolute;
+    margin-left: 25px;
+}
+
+.container {
+    position: relative;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}

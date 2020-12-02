@@ -2,8 +2,8 @@ import { HANDLE_KEYPRESS, REVERT_POSITION } from '../actions/types'
 
 const INITIAL_STATE = [{
         direction: 'ArrowLeft',
-        x: 4,
-        y: 0
+        x: 30,
+        y: 10
     },
     {
         direction: 'd',

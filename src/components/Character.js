@@ -10,9 +10,9 @@ const Character = (props) => {
     let left = 50*props.position[props.id].x + 'px'
     let top = (50*props.position[props.id].y + 100) + 'px'
     return (
-        <div>
-            {/* <h4>Player {props.id + 1}</h4> */}
-            <img style={{left, top, position:'absolute'}} title={"Player " + (props.id + 1)} src={Knight} className={class_name}/>
+        <div style={{left, top, position:'absolute'}}>
+            <span class="label">Player {props.id + 1}</span>
+            <img  title={"Player " + (props.id + 1)} src={Knight} className={class_name}/>
         </div>
     )
 }
