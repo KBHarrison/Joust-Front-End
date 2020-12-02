@@ -2,8 +2,8 @@ import { HANDLE_KEYPRESS, REVERT_POSITION } from '../actions/types'
 
 const INITIAL_STATE = [{
         direction: 'ArrowLeft',
-        x: 10,
-        y: 10
+        x: 19,
+        y: 15
     },
     {
         direction: 'd',
@@ -23,26 +23,42 @@ const direction =  (state=INITIAL_STATE, action) => {
             if (action.payload === state[0].direction) {
                 switch (action.payload) {
                     case "ArrowUp":
-                        return [{...state[0], y: state[0].y - 1}, state[1]]
+                        if (state[0].y > 0) {
+                            return [{...state[0], y: state[0].y - 1}, state[1]]
+                        } else return state
                     case "ArrowDown":
-                        return [{...state[0], y: state[0].y + 1}, state[1]]
+                        if (state[0].y < 16) {
+                            return [{...state[0], y: state[0].y + 1}, state[1]]
+                        } else return state
                     case "ArrowLeft":
-                        return [{...state[0], x: state[0].x - 1}, state[1]]
+                        if (state[0].x > 0) {
+                            return [{...state[0], x: state[0].x - 1}, state[1]]
+                        } else return state
                     case "ArrowRight":
-                        return [{...state[0], x: state[0].x + 1}, state[1]]
+                        if (state[0].x < 19) {
+                            return [{...state[0], x: state[0].x + 1}, state[1]]
+                        } else return state
                     default:
                         break
                 }
             } else if (action.payload === state[1].direction) {
                 switch (action.payload) {
                     case "w":
-                        return [state[0],{...state[1], y: state[1].y - 1}]
+                        if (state[1].y > 0) {
+                            return [state[0],{...state[1], y: state[1].y - 1}]
+                        } else return state
                     case "s":
-                        return [state[0],{...state[1], y: state[1].y + 1}]
+                        if (state[1].y < 16) {
+                            return [state[0],{...state[1], y: state[1].y + 1}]
+                        } else return state
                     case "a":
-                        return [state[0],{...state[1], x: state[1].x - 1}]
+                        if (state[1].x > 0) {
+                            return [state[0],{...state[1], x: state[1].x - 1}]
+                        } else return state
                     case "d":
-                        return [state[0],{...state[1], x: state[1].x + 1}]
+                        if (state[1].x < 19) {
+                            return [state[0],{...state[1], x: state[1].x + 1}]
+                        } else return state
                     default:
                         break
                 }
