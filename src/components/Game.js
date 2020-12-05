@@ -12,6 +12,15 @@ const Game = (props) => {
             props.handleKeypress(event.key)
         })
     }, [])
+
+    const sendThing = function() {
+        const message = {
+            type: "move",
+            direction: "left"
+        }
+        props.client.send(JSON.stringify(message))
+    }
+
     let p1Health = []
     let p2health = []
     for (let i = 0; i < props.health[0]; i++) {
@@ -28,6 +37,7 @@ const Game = (props) => {
         <div className="grid-row">
                 <h1>Player 2 Health: {p2health}</h1>
         </div>
+        <span onClick={sendThing}>click me</span>
         <div className="game-box">
             <Character
             id={0} />

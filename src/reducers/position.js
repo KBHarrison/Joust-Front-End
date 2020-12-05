@@ -1,4 +1,4 @@
-import { HANDLE_KEYPRESS, REVERT_POSITION } from '../actions/types'
+import { HANDLE_KEYPRESS, RECEIVE_POSITION, REVERT_POSITION } from '../actions/types'
 
 const INITIAL_STATE = [{
         direction: 'ArrowLeft',
@@ -15,7 +15,7 @@ const INITIAL_STATE = [{
  const ARROW_DIRECTIONS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
  const KEYBOARD_DIRECTIONS = ['w', 'a', 's', 'd']
 
-const direction =  (state=INITIAL_STATE, action) => {
+const direction = (state=INITIAL_STATE, action) => {
     switch (action.type) {
         case HANDLE_KEYPRESS:
             // Check if the arrow key direction is the same direction the little guy is already facing.
@@ -72,6 +72,12 @@ const direction =  (state=INITIAL_STATE, action) => {
             }
         case (REVERT_POSITION):
             return INITIAL_STATE
+        case (RECEIVE_POSITION):
+            if (action.payload.player === 0) {
+                return [action.payload.position, state[1]]
+            } else {
+                return [state[0], action.payload.position]
+            }
         default:
             return state;
     }

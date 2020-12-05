@@ -1,16 +1,27 @@
 import React, { useEffect } from 'react'
-import Character from './Character'
 import Game from './Game'
-import { connect } from 'react-redux'
-import * as actions from '../actions'
+import { w3cwebsocket as W3CWebSocket } from "websocket";
+
+const client = new W3CWebSocket('ws://localhost:3001');
+
 
 const App = () => {
 
+    useEffect(() => {
+        console.log('useEffect called')
+        client.onopen = (...parameters) => {
+            console.log('web socket client connected!', parameters)
+        }
+        client.onmessage = (message) => {
+            console.log(message);
+          };
+    }, [])
+
     return (
         <div>
-            <Game />
+            <Game client={client} />
         </div>
     )
 }
 
-export default connect(null, actions)(App)
+export default App
