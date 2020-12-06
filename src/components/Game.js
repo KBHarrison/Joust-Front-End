@@ -4,13 +4,24 @@ import * as actions from '../actions'
 import Character from './Character'
 import '../styles/knight.css'
 import Heart from '../assets/heart.png'
+import { w3cwebsocket as W3CWebSocket } from "websocket";
 
+const client = new W3CWebSocket('ws://localhost:3001');
 
 const Game = (props) => {
     useEffect(() => {
         document.addEventListener('keydown', event => {
             props.handleKeypress(event.key)
         })
+        client.onopen = (...parameters) => {
+            console.log('web socket client connected!', parameters)
+        }
+        client.onmessage = (message) => {
+            console.log(message)
+            if (JSON.parse(message.data).position) {
+                props.receivePosition(JSON.parse(message.data))
+            }
+        };
     }, [])
 
     const sendThing = function() {
@@ -18,7 +29,7 @@ const Game = (props) => {
             type: "move",
             direction: "left"
         }
-        props.client.send(JSON.stringify(message))
+        client.send(JSON.stringify(message))
     }
 
     let p1Health = []

@@ -70,14 +70,16 @@ const direction = (state=INITIAL_STATE, action) => {
                     return [state[0], {...state[1], direction: action.payload}]
                 }
             }
+            break
         case (REVERT_POSITION):
             return INITIAL_STATE
         case (RECEIVE_POSITION):
-            if (action.payload.player === 0) {
-                return [action.payload.position, state[1]]
-            } else {
-                return [state[0], action.payload.position]
-            }
+            // if (action.payload.player === 0) {
+            //     return [action.payload.position, state[1]]
+            // } else {
+            console.log("Receiving position: ", JSON.stringify(action.payload))
+            return [state[0], {direction: 'd', ...action.payload.position}]
+            // }
         default:
             return state;
     }

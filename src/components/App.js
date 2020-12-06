@@ -1,26 +1,35 @@
 import React, { useEffect } from 'react'
 import Game from './Game'
-import { w3cwebsocket as W3CWebSocket } from "websocket";
-
-const client = new W3CWebSocket('ws://localhost:3001');
-
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 
 const App = () => {
-
-    useEffect(() => {
-        console.log('useEffect called')
-        client.onopen = (...parameters) => {
-            console.log('web socket client connected!', parameters)
-        }
-        client.onmessage = (message) => {
-            console.log(message);
-          };
-    }, [])
-
     return (
-        <div>
-            <Game client={client} />
-        </div>
+        <Router>
+            <Navbar bg="dark" variant="dark">
+                <Navbar.Brand href="#home">DinoBash</Navbar.Brand>
+                <Nav className="mr-auto">
+                    <Nav.Link as={Link} to="/">Play Locally</Nav.Link>
+                    <Nav.Link as={Link} to="/online">Play Online</Nav.Link>
+                </Nav>
+            </Navbar>
+            <br />
+            <Switch>
+                <Route path="/">
+                    <Game online={false} />
+                </Route>
+                <Route path="/online">
+                    <Game online={true} />
+                </Route>
+            </Switch>
+        </Router>
     )
 }
 
