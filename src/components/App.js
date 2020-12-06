@@ -22,11 +22,13 @@ const App = () => {
             </Navbar>
             <br />
             <Switch>
-                <Route path="/">
-                    <Game online={false} />
-                </Route>
                 <Route path="/online">
+                    <h2>Online Actually</h2>
                     <Game online={true} />
+                </Route>
+                <Route path="/">
+                    <h1>Online!!</h1>
+                    <Game online={false} />
                 </Route>
             </Switch>
         </Router>
