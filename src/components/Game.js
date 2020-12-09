@@ -6,22 +6,31 @@ import '../styles/knight.css'
 import Heart from '../assets/heart.png'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 
-const client = new W3CWebSocket('ws://localhost:3001');
+let client;
+
 
 const Game = (props) => {
+
+    if (props.online) {
+        client = new W3CWebSocket('ws://localhost:3001');
+    }
+    
     useEffect(() => {
         document.addEventListener('keydown', event => {
+            event.preventDefault()
             props.handleKeypress(event.key)
         })
-        client.onopen = (...parameters) => {
-            console.log('web socket client connected!', parameters)
-        }
-        client.onmessage = (message) => {
-            console.log(message)
-            if (JSON.parse(message.data).position) {
-                props.receivePosition(JSON.parse(message.data))
+        if (props.online) {
+            client.onopen = (...parameters) => {
+                console.log('web socket client connected!', parameters)
             }
-        };
+            client.onmessage = (message) => {
+                console.log(message)
+                if (JSON.parse(message.data).position) {
+                    props.receivePosition(JSON.parse(message.data))
+                }
+            };
+        }
     }, [])
 
     const sendThing = function() {
@@ -48,7 +57,6 @@ const Game = (props) => {
         <div className="grid-row">
                 <h1>Player 2 Health: {p2health}</h1>
         </div>
-        <span onClick={sendThing}>click me</span>
         <div className="game-box">
             <Character
             id={0} />

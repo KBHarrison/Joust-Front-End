@@ -10,7 +10,6 @@ const INITIAL_STATE = [3,3]
 const health =  (state=INITIAL_STATE, action) => {
     switch (action.type) {
         case(HANDLE_CRASH):
-            console.log(action.payload)
             if (state[action.payload] === 1) {
                 return INITIAL_STATE
             }
