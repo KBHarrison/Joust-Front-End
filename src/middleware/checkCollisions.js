@@ -6,18 +6,12 @@ export default ({ dispatch, getState }) => next => action => {
     const state = getState()
     if(Math.abs(state.position[0].x - state.position[1].x) < 1.001 && Math.abs(state.position[0].y - state.position[1].y) < 1.001 && action.type === HANDLE_KEYPRESS) {
         const payload = ARROW_DIRECTIONS.includes(action.payload) ? 1 : 0
-        const crashAction = {
-            type: HANDLE_CRASH,
-            payload
-        }
         dispatch({type: HANDLE_DEATH, payload})
+        dispatch({ type: HANDLE_CRASH, payload })
         setTimeout(() => {
             dispatch({type: HANDLE_DEATH, payload})
-            dispatch({type: REVERT_POSITION, payload})
+            // dispatch({type: REVERT_POSITION, payload})
         }, 3000)
-        dispatch(crashAction)
     }
     return next(action)
-
-
 }
