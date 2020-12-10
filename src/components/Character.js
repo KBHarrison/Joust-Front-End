@@ -13,7 +13,7 @@ const Character = (props) => {
     const position = props.position[props.id]
     if (position !== undefined) {
         let class_name = "knight " + props.id +  " " + (position.dead ? "" : position.direction)
-        let left = 5*position.position.x - 2 + '%'
+        let left = 5*position.position.x - 3 + '%'
         let top = (5*position.position.y) + '%'
         let height = "40%"
         let src = position.dead? DinoDead : position.up ? DinoUp : DinoDown

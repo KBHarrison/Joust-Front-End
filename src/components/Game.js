@@ -26,12 +26,36 @@ const Game = (props) => {
     if (props.online) {
         client = new W3CWebSocket('ws://localhost:3001');
         client.onopen = (...parameters) => {
+            client.send(JSON.stringify({
+                type: "game_info"
+            }))
+
             console.log('web socket client connected!', parameters)
         }
         client.onmessage = (message) => {
             console.log(message)
-            if (JSON.parse(message.data).position) {
-                props.receivePosition(JSON.parse(message.data))
+            let data = JSON.parse(message.data)
+            if (data.source === "game_info") {
+                games = data.data
+
+                client.send(JSON.stringify({
+                    type: "join",
+                    gameID: games[0].id
+                }))
+            }
+            if (data.source === "join") {
+                console.log(data)
+                for (let player of data.data.players) {
+                    props.addPlayer(player)
+                }
+            }
+            if (data.source === "move") {
+                for (let player of data.data) {
+                    props.receivePosition(player)
+                }
+            }
+            if (data.source === "error") {
+                console.error(data.message)
             }
         };
     }
