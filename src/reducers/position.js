@@ -32,7 +32,7 @@ const direction = (state=INITIAL_STATE, action) => {
                                 return [{...state[0], y: state[0].y - 1, up: !state[0].up}, state[1]]
                             } else return state
                         case "ArrowDown":
-                            if (state[0].y < 16) {
+                            if (state[0].y < 17) {
                                 return [{...state[0], y: state[0].y + 1, up: !state[0].up}, state[1]]
                             } else return state
                         case "ArrowLeft":
@@ -53,7 +53,7 @@ const direction = (state=INITIAL_STATE, action) => {
                                 return [state[0],{...state[1], y: state[1].y - 1, up: !state[1].up}]
                             } else return state
                         case "s":
-                            if (state[1].y < 16) {
+                            if (state[1].y < 17) {
                                 return [state[0],{...state[1], y: state[1].y + 1, up: !state[1].up}]
                             } else return state
                         case "a":

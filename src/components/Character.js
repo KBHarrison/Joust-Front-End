@@ -11,10 +11,10 @@ import DinoDead from '../assets/dino_dead.png'
 
 const Character = (props) => {
     const position = props.position[props.id]
-    let class_name = "knight " + props.id +  " " + position.direction
-    let left = 5*position.x - 1 + '%'
+    let class_name = "knight " + props.id +  " " + (position.dead ? "" : position.direction)
+    let left = 5*position.x - 2 + '%'
     let top = (5*position.y) + '%'
-    let height = "50%"
+    let height = "40%"
     let src = position.dead? DinoDead : position.up ? DinoUp : DinoDown
     return (
         <div style={{left, top, position:'absolute', height}}>

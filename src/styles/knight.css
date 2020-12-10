@@ -30,6 +30,7 @@
 .label {
     position: absolute;
     margin-left: 25px;
+    top: 35%;
 }
 
 .health {
