@@ -8,3 +8,6 @@ export const TOGGLE_MODAL = 'toggle_modal'
 export const ADD_PLAYER = 'add_player'
 export const UPDATE_PLAYER = 'update_player'
 export const INITIALIZE_OFFLINE_STATE = 'initialize_offline_state'
+export const RESET_GAME = 'reset_game'
+
+

@@ -25,23 +25,33 @@ const Game = (props) => {
 
     if (props.online) {
         client = new W3CWebSocket('ws://localhost:3001');
+        client.onopen = (...parameters) => {
+            console.log('web socket client connected!', parameters)
+        }
+        client.onmessage = (message) => {
+            console.log(message)
+            if (JSON.parse(message.data).position) {
+                props.receivePosition(JSON.parse(message.data))
+            }
+        };
     }
 
     const handleClose = () => {
         props.toggleModal()
     }
+
+    const keydownListener = (event) => {
+        event.preventDefault()
+        if (!props.online) {
+            props.handleKeypress(event.key)
+        } else {
+            movePlayer(directions[event.key])
+        }
+    }
     
     useEffect(() => {
-        document.addEventListener('keydown', event => {
-            if (!props.showModal) {
-                event.preventDefault()
-                if (!props.online) {
-                    props.handleKeypress(event.key)
-                } else {
-                    movePlayer(directions[event.key])
-                }
-            }
-        })
+        props.resetGame()
+        document.addEventListener('keydown', keydownListener)
         if (props.online) {
             client.onopen = (...parameters) => {
                 client.send(JSON.stringify({
@@ -79,6 +89,9 @@ const Game = (props) => {
         } else {
             props.initializeOfflineMode()
         }
+        return () => {
+            document.removeEventListener('keydown', keydownListener)
+        }
     }, [])
 
     const movePlayer = function(direction) {
@@ -97,18 +110,25 @@ const Game = (props) => {
     for (let i = 0; i < props.health[1]; i++) {
         p2health.push(<img className="health" src={Heart} style={{height: '40px', width: '40px'}} key={i}></img>)
     }
+    console.log("Props: ",props)
+    let winner = props.position[0].dead ? 2 : 1
     return (
     <div className="grid-container">
-        <Modal show={props.showModal} onHide={handleClose}>
+        <Modal 
+              size="lg"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              show={props.showModal}
+              onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Thanks for playing!</Modal.Title>
+                <Modal.Title>Player {winner} is the winner!</Modal.Title>
             </Modal.Header>
             <Modal.Body>Would you like to play again?</Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                     No
                 </Button>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="primary" onClick={props.resetGame}>
                     Yes
                 </Button>
             </Modal.Footer>
@@ -132,7 +152,8 @@ const Game = (props) => {
 function MapStateToProps(state) {
     return {
         health: state.health,
-        showModal: state.modal
+        showModal: state.modal,
+        position: state.position,
     }
 }
 
