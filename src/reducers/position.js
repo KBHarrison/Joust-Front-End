@@ -23,7 +23,7 @@ const INITIAL_STATE = [{
  const ARROW_DIRECTIONS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
  const KEYBOARD_DIRECTIONS = ['w', 'a', 's', 'd']
 
-const direction = (state=[], action) => {
+const direction = (state=INITIAL_STATE, action) => {
     switch (action.type) {
         case INITIALIZE_OFFLINE_STATE:
             return INITIAL_STATE

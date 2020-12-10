@@ -4,7 +4,7 @@ import App from './components/App'
 import { Provider } from 'react-redux'
 import reducers from './reducers'
 import { applyMiddleware, createStore, compose } from 'redux'
-// import checkCollision from './middleware/checkCollisions'
+import checkCollision from './middleware/checkCollisions'
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -12,9 +12,9 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const initialStore = createStore(
         reducers,
         {},
-        // composeEnhancers(
-        //     applyMiddleware(checkCollision),
-        // )
+        composeEnhancers(
+            applyMiddleware(checkCollision),
+        )
     )
 
 ReactDOM.render(
