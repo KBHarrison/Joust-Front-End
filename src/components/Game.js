@@ -23,19 +23,6 @@ let directions = Object.freeze({
 const Game = (props) => {
     let games = []
 
-    if (props.online) {
-        client = new W3CWebSocket('ws://localhost:3001');
-        client.onopen = (...parameters) => {
-            console.log('web socket client connected!', parameters)
-        }
-        client.onmessage = (message) => {
-            console.log(message)
-            if (JSON.parse(message.data).position) {
-                props.receivePosition(JSON.parse(message.data))
-            }
-        };
-    }
-
     const handleClose = () => {
         props.toggleModal()
     }
@@ -53,7 +40,9 @@ const Game = (props) => {
         props.resetGame()
         document.addEventListener('keydown', keydownListener)
         if (props.online) {
+            client = new W3CWebSocket('ws://localhost:3001');
             client.onopen = (...parameters) => {
+                console.log(client)
                 client.send(JSON.stringify({
                     type: "game_info"
                 }))
@@ -111,7 +100,12 @@ const Game = (props) => {
         p2health.push(<img className="health" src={Heart} style={{height: '40px', width: '40px'}} key={i}></img>)
     }
     console.log("Props: ",props)
-    let winner = props.position[0].dead ? 2 : 1
+    let winner
+    
+    if (props.position[0] !== undefined) {
+        winner = props.position[0].dead ? 2 : 1
+    }
+    
     return (
     <div className="grid-container">
         <Modal 

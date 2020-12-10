@@ -23,7 +23,7 @@ const INITIAL_STATE = [{
  const ARROW_DIRECTIONS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
  const KEYBOARD_DIRECTIONS = ['w', 'a', 's', 'd']
 
-const direction = (state=INITIAL_STATE, action) => {
+const direction = (state=[], action) => {
     switch (action.type) {
         case INITIALIZE_OFFLINE_STATE:
             return INITIAL_STATE
@@ -104,7 +104,7 @@ const direction = (state=INITIAL_STATE, action) => {
             console.log("New State: ",replaceAt(state, action.payload, newState))
             return replaceAt(state, action.payload, newState)
         case (RESET_GAME):
-            return INITIAL_STATE
+            return []
         default:
             return state;
     }
