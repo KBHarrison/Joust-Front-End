@@ -42,7 +42,6 @@ const Game = (props) => {
         if (props.online) {
             client = new W3CWebSocket('ws://localhost:3001');
             client.onopen = (...parameters) => {
-                console.log(client)
                 client.send(JSON.stringify({
                     type: "game_info"
                 }))
@@ -50,7 +49,6 @@ const Game = (props) => {
                 console.log('web socket client connected!', parameters)
             }
             client.onmessage = (message) => {
-                console.log(message)
                 let data = JSON.parse(message.data)
                 if (data.source === "game_info") {
                     games = data.data
@@ -61,7 +59,6 @@ const Game = (props) => {
                     }))
                 }
                 if (data.source === "join") {
-                    console.log(data)
                     for (let player of data.data.players) {
                         props.addPlayer(player)
                     }
@@ -92,14 +89,26 @@ const Game = (props) => {
     }
 
     let p1Health = []
-    let p2health = []
-    for (let i = 0; i < props.health[0]; i++) {
-        p1Health.push(<img className="health" src={Heart} style={{height: '40px', width: '40px'}} key={i}></img>)
+    let p2Health = []
+    let health = []
+    if (props.online) {
+        for (let player of props.position) {
+            let playerHealth = []
+            for (let i = 0; i < player.health; i++) {
+                playerHealth.push(<img className="health" src={Heart} style={{height: '40px', width: '40px'}} key={i}></img>)
+            }
+            health.push(playerHealth)
+        }
+    } else {
+        for (let i = 0; i < props.health[0]; i++) {
+            p1Health.push(<img className="health" src={Heart} style={{height: '40px', width: '40px'}} key={i}></img>)
+        }
+        for (let i = 0; i < props.health[1]; i++) {
+            p2Health.push(<img className="health" src={Heart} style={{height: '40px', width: '40px'}} key={i}></img>)
+        }
+        health.push(p1Health)
+        health.push(p2Health)
     }
-    for (let i = 0; i < props.health[1]; i++) {
-        p2health.push(<img className="health" src={Heart} style={{height: '40px', width: '40px'}} key={i}></img>)
-    }
-    console.log("Props: ",props)
     let winner
     
     if (props.position[0] !== undefined) {
@@ -127,12 +136,13 @@ const Game = (props) => {
                 </Button>
             </Modal.Footer>
       </Modal>
-        <div className="grid-row">
-                <h1>Player 1 Health: {p1Health}</h1>
-        </div>
-        <div className="grid-row">
-                <h1>Player 2 Health: {p2health}</h1>
-        </div>
+        {health.map((hp, i) => {
+            return (
+                <div className="grid-row">
+                    <h1>Player {i + 1} Health: {hp}</h1>
+                </div>
+            )
+        })}
         <div className="game-box">
             <Character
             id={0} />

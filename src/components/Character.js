@@ -35,7 +35,6 @@ const Character = (props) => {
 }
 
 function mapStateToProps(state) {
-    console.log(state)
     return {
         position: state.position
     }
