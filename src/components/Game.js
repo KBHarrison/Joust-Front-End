@@ -29,12 +29,19 @@ const Game = (props) => {
     const handleClose = () => {
         props.toggleModal()
     }
+
+    const keydownListener = (event) => {
+        event.preventDefault()
+        props.handleKeypress(event.key)
+    }
     
     useEffect(() => {
-        document.addEventListener('keydown', event => {
-            event.preventDefault()
-            props.handleKeypress(event.key)
-        })
+        document.addEventListener('keydown', keydownListener)
+        props.resetGame()
+        
+        return () => {
+            document.removeEventListener('keydown', keydownListener)
+        }
     }, [])
 
     const sendThing = function() {
@@ -70,7 +77,7 @@ const Game = (props) => {
                 <Button variant="secondary" onClick={handleClose}>
                     No
                 </Button>
-                <Button variant="primary" onClick={handleClose}>
+                <Button variant="primary" onClick={props.resetGame}>
                     Yes
                 </Button>
             </Modal.Footer>

@@ -1,4 +1,4 @@
-import { HANDLE_KEYPRESS, RECEIVE_POSITION, TOGGLE_MODAL } from "./types";
+import { HANDLE_KEYPRESS, RECEIVE_POSITION, TOGGLE_MODAL, RESET_GAME } from "./types";
 
 export function handleKeypress(direction) {
     return {
@@ -16,4 +16,8 @@ export function receivePosition(payload) {
 
 export function toggleModal() {
     return ({type: TOGGLE_MODAL})
+}
+
+export function resetGame() {
+    return ({type: RESET_GAME})
 }

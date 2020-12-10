@@ -1,4 +1,4 @@
-import { HANDLE_CRASH, HANDLE_KEYPRESS } from '../actions/types'
+import { HANDLE_CRASH, RESET_GAME } from '../actions/types'
 
 
 // This is just copied
@@ -19,6 +19,8 @@ const health = (state=INITIAL_STATE, action) => {
                 newHealth.splice(action.payload, 1, newValue)
                 return newHealth
             }
+        case (RESET_GAME):
+            return INITIAL_STATE
         default:
             return state;
     }

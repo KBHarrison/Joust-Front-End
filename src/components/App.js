@@ -18,10 +18,10 @@ const App = () => {
             <br />
             <Switch>
                 <Route path="/online">
-                    <Game online={true} />
+                    <Game key="online" online={true} />
                 </Route>
                 <Route path="/">
-                    <Game online={false} />
+                    <Game key="local" online={false} />
                 </Route>
             </Switch>
         </Router>
