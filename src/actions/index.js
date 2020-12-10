@@ -1,4 +1,4 @@
-import { HANDLE_KEYPRESS, RECEIVE_POSITION, TOGGLE_MODAL } from "./types";
+import { HANDLE_KEYPRESS, UPDATE_PLAYER, TOGGLE_MODAL, ADD_PLAYER } from "./types";
 
 export function handleKeypress(direction) {
     return {
@@ -9,7 +9,14 @@ export function handleKeypress(direction) {
 
 export function receivePosition(payload) {
     return {
-        type: RECEIVE_POSITION,
+        type: UPDATE_PLAYER,
+        payload
+    }
+}
+
+export function addPlayer(payload) {
+    return {
+        type: ADD_PLAYER,
         payload
     }
 }

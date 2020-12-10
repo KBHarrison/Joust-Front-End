@@ -1,4 +1,4 @@
-import { HANDLE_DEATH, HANDLE_KEYPRESS, RECEIVE_POSITION, REVERT_POSITION } from '../actions/types'
+import { HANDLE_DEATH, HANDLE_KEYPRESS, UPDATE_PLAYER, ADD_PLAYER, INITIALIZE_OFFLINE_STATE, REVERT_POSITION } from '../actions/types'
 import { replaceAt } from '../helpers'
 const INITIAL_STATE = [{
         direction: 'ArrowLeft',
@@ -19,8 +19,10 @@ const INITIAL_STATE = [{
  const ARROW_DIRECTIONS = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
  const KEYBOARD_DIRECTIONS = ['w', 'a', 's', 'd']
 
-const direction = (state=INITIAL_STATE, action) => {
+const direction = (state=[], action) => {
     switch (action.type) {
+        case INITIALIZE_OFFLINE_STATE:
+            return INITIAL_STATE
         case HANDLE_KEYPRESS:
             // Check if the arrow key direction is the same direction the little guy is already facing.
             // If yes, go that direction. If not, change the direction.
@@ -87,9 +89,11 @@ const direction = (state=INITIAL_STATE, action) => {
             } else {
                 return [state[0], INITIAL_STATE[1]]
             }
-        case (RECEIVE_POSITION):
+        case (ADD_PLAYER):
+            return [...state, {...action.payload, up: true, dead: false}]
+        case (UPDATE_PLAYER):
             console.log("Receiving position: ", JSON.stringify(action.payload))
-            return [state[0], {...action.payload.position}]
+            return state.map((player) => player.id === action.payload.id ? {...action.payload, up: !player.up, dead: action.payload.health < 1} : player)
         case (HANDLE_DEATH):
             console.log("HANDLE_DEATH: ", action.payload)
             let newState = {...state[action.payload], dead: !state[action.payload].dead}
