@@ -1,4 +1,4 @@
-import { HANDLE_KEYPRESS, RECEIVE_POSITION } from "./types";
+import { HANDLE_KEYPRESS, RECEIVE_POSITION, TOGGLE_MODAL } from "./types";
 
 export function handleKeypress(direction) {
     return {
@@ -12,4 +12,8 @@ export function receivePosition(payload) {
         type: RECEIVE_POSITION,
         payload
     }
+}
+
+export function toggleModal() {
+    return ({type: TOGGLE_MODAL})
 }

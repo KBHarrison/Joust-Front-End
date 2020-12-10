@@ -13,19 +13,21 @@ let client;
 
 const Game = (props) => {
 
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true)
-
     if (props.online) {
         client = new W3CWebSocket('ws://localhost:3001');
+    }
+
+    const handleClose = () => {
+        props.toggleModal()
     }
     
     useEffect(() => {
         document.addEventListener('keydown', event => {
-            event.preventDefault()
-            props.handleKeypress(event.key)
+            if (!props.showModal) {
+                console.log(props.showModal)
+                event.preventDefault()
+                props.handleKeypress(event.key)
+            }
         })
         if (props.online) {
             client.onopen = (...parameters) => {
@@ -58,7 +60,7 @@ const Game = (props) => {
     }
     return (
     <div className="grid-container">
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={props.showModal} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Thanks for playing!</Modal.Title>
             </Modal.Header>
@@ -90,7 +92,8 @@ const Game = (props) => {
 
 function MapStateToProps(state) {
     return {
-        health: state.health
+        health: state.health,
+        showModal: state.modal
     }
 }
 

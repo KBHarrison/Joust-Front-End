@@ -7,11 +7,11 @@ import { HANDLE_CRASH, HANDLE_KEYPRESS } from '../actions/types'
 const INITIAL_STATE = [3,3]
 
 
-const health =  (state=INITIAL_STATE, action) => {
+const health = (state=INITIAL_STATE, action) => {
     switch (action.type) {
         case(HANDLE_CRASH):
             if (state[action.payload] === 1) {
-                return INITIAL_STATE
+                return INITIAL_STATE //Figure out how to test for this condition outside of the reducer and then don't call it here. CAll it at the source
             }
             else {
                 let newValue = state[action.payload] - 1

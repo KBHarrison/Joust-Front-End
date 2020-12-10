@@ -1,4 +1,4 @@
-import { HANDLE_CRASH, HANDLE_DEATH, HANDLE_KEYPRESS, REVERT_POSITION } from "../actions/types"
+import { HANDLE_CRASH, HANDLE_DEATH, HANDLE_KEYPRESS, REVERT_POSITION, TOGGLE_MODAL } from "../actions/types"
 import { ARROW_DIRECTIONS } from "../reducers/position"
 
 export default ({ dispatch, getState }) => next => action => {
@@ -10,12 +10,16 @@ export default ({ dispatch, getState }) => next => action => {
         && !(state.position[0].dead || state.position[1].dead)
         ) {
         const payload = ARROW_DIRECTIONS.includes(action.payload) ? 1 : 0
-        dispatch({type: HANDLE_DEATH, payload})
-        dispatch({ type: HANDLE_CRASH, payload })
-        setTimeout(() => {
+        if (state.health[payload] === 1) {
+            dispatch({type: TOGGLE_MODAL, payload})
+        } else {
             dispatch({type: HANDLE_DEATH, payload})
-            dispatch({type: REVERT_POSITION, payload})
-        }, 1000)
+            dispatch({ type: HANDLE_CRASH, payload })
+            setTimeout(() => {
+                dispatch({type: HANDLE_DEATH, payload})
+                dispatch({type: REVERT_POSITION, payload})
+            }, 1000)
+        }
     }
     return next(action)
 }
