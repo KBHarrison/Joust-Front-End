@@ -64,13 +64,16 @@ const Game = (props) => {
                 if (data.source === "join") {
                     console.log(data)
                     for (let player of data.data.players) {
-                        props.receivePosition(player)
+                        props.addPlayer(player)
                     }
                 }
                 if (data.source === "move") {
                     for (let player of data.data) {
                         props.receivePosition(player)
                     }
+                }
+                if (data.source === "error") {
+                    console.error(data.message)
                 }
             };
         }
