@@ -76,6 +76,8 @@ const Game = (props) => {
                     console.error(data.message)
                 }
             };
+        } else {
+            props.initializeOfflineMode()
         }
     }, [])
 

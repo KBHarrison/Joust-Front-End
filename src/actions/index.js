@@ -1,9 +1,15 @@
-import { HANDLE_KEYPRESS, UPDATE_PLAYER, TOGGLE_MODAL, ADD_PLAYER } from "./types";
+import { HANDLE_KEYPRESS, UPDATE_PLAYER, TOGGLE_MODAL, ADD_PLAYER, INITIALIZE_OFFLINE_STATE } from "./types";
 
 export function handleKeypress(direction) {
     return {
         type: HANDLE_KEYPRESS,
         payload: direction
+    }
+}
+
+export function initializeOfflineMode() {
+    return {
+        type: INITIALIZE_OFFLINE_STATE
     }
 }
 

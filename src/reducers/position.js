@@ -2,15 +2,19 @@ import { HANDLE_DEATH, HANDLE_KEYPRESS, UPDATE_PLAYER, ADD_PLAYER, INITIALIZE_OF
 import { replaceAt } from '../helpers'
 const INITIAL_STATE = [{
         direction: 'ArrowLeft',
-        x: 19,
-        y: 15,
+        position: {
+            x: 19,
+            y: 15,
+        },
         up: true,
         dead: false
     },
     {
         direction: 'd',
-        x: 0,
-        y: 0,
+        position: {
+            x: 0,
+            y: 0,
+        },
         up: true,
         dead: false
     }
@@ -30,20 +34,20 @@ const direction = (state=[], action) => {
                 if (action.payload === state[0].direction) {
                     switch (action.payload) {
                         case "ArrowUp":
-                            if (state[0].y > 0) {
-                                return [{...state[0], y: state[0].y - 1, up: !state[0].up}, state[1]]
+                            if (state[0].position.y > 0) {
+                                return [{...state[0], position: {...state[0].position, y: state[0].position.y - 1}, up: !state[0].up}, state[1]]
                             } else return state
                         case "ArrowDown":
-                            if (state[0].y < 17) {
-                                return [{...state[0], y: state[0].y + 1, up: !state[0].up}, state[1]]
+                            if (state[0].position.y < 17) {
+                                return [{...state[0], position: {...state[0].position, y: state[0].position.y + 1}, up: !state[0].up}, state[1]]
                             } else return state
                         case "ArrowLeft":
-                            if (state[0].x > 0) {
-                                return [{...state[0], x: state[0].x - 1, up: !state[0].up}, state[1]]
+                            if (state[0].position.x > 0) {
+                                return [{...state[0], position: {...state[0].position, x: state[0].position.x - 1}, up: !state[0].up}, state[1]]
                             } else return state
                         case "ArrowRight":
-                            if (state[0].x < 19) {
-                                return [{...state[0], x: state[0].x + 1, up: !state[0].up}, state[1]]
+                            if (state[0].position.x < 19) {
+                                return [{...state[0], position: {...state[0].position, x: state[0].position.x + 1}, up: !state[0].up}, state[1]]
                             } else return state
                         default:
                             break
@@ -51,20 +55,20 @@ const direction = (state=[], action) => {
                 } else if (action.payload === state[1].direction) {
                     switch (action.payload) {
                         case "w":
-                            if (state[1].y > 0) {
-                                return [state[0],{...state[1], y: state[1].y - 1, up: !state[1].up}]
+                            if (state[1].position.y > 0) {
+                                return [state[0],{...state[1], position: {...state[1].position, y: state[1].position.y - 1}, up: !state[1].up}]
                             } else return state
                         case "s":
-                            if (state[1].y < 17) {
-                                return [state[0],{...state[1], y: state[1].y + 1, up: !state[1].up}]
+                            if (state[1].position.y < 17) {
+                                return [state[0],{...state[1], position: {...state[1].position, y: state[1].position.y + 1}, up: !state[1].up}]
                             } else return state
                         case "a":
-                            if (state[1].x > 0) {
-                                return [state[0],{...state[1], x: state[1].x - 1, up: !state[1].up}]
+                            if (state[1].position.x > 0) {
+                                return [state[0],{...state[1], position: {...state[1].position, x: state[1].position.x - 1}, up: !state[1].up}]
                             } else return state
                         case "d":
-                            if (state[1].x < 19) {
-                                return [state[0],{...state[1], x: state[1].x + 1, up: !state[1].up}]
+                            if (state[1].position.x < 19) {
+                                return [state[0],{...state[1], position: {...state[1].position, x: state[1].position.x + 1}, up: !state[1].up}]
                             } else return state
                         default:
                             break
