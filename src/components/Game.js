@@ -61,6 +61,12 @@ const Game = (props) => {
                         gameID: games[0].id
                     }))
                 }
+                if (data.source === "join") {
+                    console.log(data)
+                    for (let player of data.data.players) {
+                        props.receivePosition(player)
+                    }
+                }
                 if (data.source === "move") {
                     for (let player of data.data) {
                         props.receivePosition(player)
