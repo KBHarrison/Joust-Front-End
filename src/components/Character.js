@@ -6,8 +6,9 @@ import '../styles/knight.css'
 import DinoUp from '../assets/dino_up.png'
 import DinoDown from '../assets/dino_down.png'
 import DinoDead from '../assets/dino_dead.png'
-
-
+import BlueDinoUp from '../assets/blue_dino_up.png'
+import BlueDinoDown from '../assets/blue_dino_down.png'
+import BlueDinoDead from '../assets/blue_dino_dead.png'
 
 const Character = (props) => {
     const position = props.position[props.id]
@@ -16,7 +17,12 @@ const Character = (props) => {
         let left = 5*position.position.x - 3 + '%'
         let top = (5*position.position.y) + '%'
         let height = "40%"
-        let src = position.dead? DinoDead : position.up ? DinoUp : DinoDown
+        let src = undefined
+        if (props.id % 2 === 0) {
+            src = position.dead? DinoDead : position.up ? DinoUp : DinoDown
+        } else {
+            src = position.dead? BlueDinoDead : position.up ? BlueDinoUp : BlueDinoDown
+        }
         return (
             <div style={{left, top, position:'absolute', height}}>
                 <span className="label">Player {props.id + 1}</span>
