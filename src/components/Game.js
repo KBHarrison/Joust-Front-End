@@ -63,7 +63,7 @@ const Game = (props) => {
                 }
                 if (data.source === "move") {
                     for (let player of data.data) {
-                        props.receivePosition(player.position)
+                        props.receivePosition(player)
                     }
                 }
             };
