@@ -1,15 +1,22 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 import Character from './Character'
 import '../styles/knight.css'
 import Heart from '../assets/heart.png'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 
 let client;
 
 
 const Game = (props) => {
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true)
 
     if (props.online) {
         client = new W3CWebSocket('ws://localhost:3001');
@@ -51,6 +58,20 @@ const Game = (props) => {
     }
     return (
     <div className="grid-container">
+        <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>Thanks for playing!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Would you like to play again?</Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    No
+                </Button>
+                <Button variant="primary" onClick={handleClose}>
+                    Yes
+                </Button>
+            </Modal.Footer>
+      </Modal>
         <div className="grid-row">
                 <h1>Player 1 Health: {p1Health}</h1>
         </div>
