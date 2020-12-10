@@ -8,9 +8,11 @@ export default ({ dispatch, getState }) => next => action => {
         Math.abs(state.position[0].x - state.position[1].x) < 1.001 && Math.abs(state.position[0].y - state.position[1].y) < 1.001
         && action.type === HANDLE_KEYPRESS
         && !(state.position[0].dead || state.position[1].dead)
+        && !state.modal
         ) {
         const payload = ARROW_DIRECTIONS.includes(action.payload) ? 1 : 0
         if (state.health[payload] === 1) {
+            dispatch({type: HANDLE_DEATH, payload})
             dispatch({type: TOGGLE_MODAL, payload})
         } else {
             dispatch({type: HANDLE_DEATH, payload})
@@ -21,5 +23,7 @@ export default ({ dispatch, getState }) => next => action => {
             }, 1000)
         }
     }
-    return next(action)
+    if (action.type !== HANDLE_KEYPRESS || !state.modal) {
+        return next(action)
+    }
 }
