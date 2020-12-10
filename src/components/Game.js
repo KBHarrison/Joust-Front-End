@@ -9,9 +9,19 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
 let client;
-
+let directions = Object.freeze({
+    ArrowUp: "up",
+    ArrowDown: "down",
+    ArrowRight: "right",
+    ArrowLeft: "left",
+    w: "up",
+    s: "down",
+    d: "right",
+    a: "left"
+})
 
 const Game = (props) => {
+    let games = []
 
     if (props.online) {
         client = new W3CWebSocket('ws://localhost:3001');
@@ -24,28 +34,46 @@ const Game = (props) => {
     useEffect(() => {
         document.addEventListener('keydown', event => {
             if (!props.showModal) {
-                console.log(props.showModal)
                 event.preventDefault()
-                props.handleKeypress(event.key)
+                if (!props.online) {
+                    props.handleKeypress(event.key)
+                } else {
+                    movePlayer(directions[event.key])
+                }
             }
         })
         if (props.online) {
             client.onopen = (...parameters) => {
+                client.send(JSON.stringify({
+                    type: "game_info"
+                }))
+
                 console.log('web socket client connected!', parameters)
             }
             client.onmessage = (message) => {
                 console.log(message)
-                if (JSON.parse(message.data).position) {
-                    props.receivePosition(JSON.parse(message.data))
+                let data = JSON.parse(message.data)
+                if (data.source === "game_info") {
+                    games = data.data
+
+                    client.send(JSON.stringify({
+                        type: "join",
+                        gameID: games[0].id
+                    }))
+                }
+                if (data.source === "move") {
+                    for (let player of data.data) {
+                        props.receivePosition(player.position)
+                    }
                 }
             };
         }
     }, [])
 
-    const sendThing = function() {
+    const movePlayer = function(direction) {
         const message = {
             type: "move",
-            direction: "left"
+            direction: direction
         }
         client.send(JSON.stringify(message))
     }
