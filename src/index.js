@@ -13,7 +13,7 @@ const initialStore = createStore(
         reducers,
         {},
         composeEnhancers(
-            // applyMiddleware(checkCollision),
+            applyMiddleware(checkCollision),
         )
     )
 

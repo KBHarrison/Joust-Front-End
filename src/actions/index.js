@@ -1,4 +1,4 @@
-import { HANDLE_KEYPRESS, UPDATE_PLAYER, TOGGLE_MODAL, ADD_PLAYER, INITIALIZE_OFFLINE_STATE, RESET_GAME, REMOVE_PLAYER, SET_CURRENT_MAP } from "./types";
+import { HANDLE_KEYPRESS, UPDATE_PLAYER, TOGGLE_MODAL, ADD_PLAYER, INITIALIZE_OFFLINE_STATE, RESET_GAME, REMOVE_PLAYER, ONLINE, RESET_LOCAL, SET_CURRENT_MAP } from "./types";
 
 export function handleKeypress(direction) {
     return {
@@ -47,4 +47,15 @@ export function toggleModal() {
 
 export function resetGame() {
     return ({type: RESET_GAME})
+}
+
+export function setOnline(payload) {
+    return ({
+        type: ONLINE,
+        payload
+    })
+}
+
+export function resetLocal() {
+    return ({type: RESET_LOCAL})
 }

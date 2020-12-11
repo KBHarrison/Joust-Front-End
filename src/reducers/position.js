@@ -1,4 +1,4 @@
-import { HANDLE_DEATH, HANDLE_KEYPRESS, UPDATE_PLAYER, ADD_PLAYER, INITIALIZE_OFFLINE_STATE, REVERT_POSITION, RESET_GAME, REMOVE_PLAYER } from '../actions/types'
+import { HANDLE_DEATH, HANDLE_KEYPRESS, UPDATE_PLAYER, ADD_PLAYER, INITIALIZE_OFFLINE_STATE, REVERT_POSITION, RESET_GAME, REMOVE_PLAYER, RESET_LOCAL } from '../actions/types'
 import { replaceAt } from '../helpers'
 const INITIAL_STATE = [{
         direction: 'ArrowLeft',
@@ -112,6 +112,8 @@ const direction = (state=[], action) => {
             return replaceAt(state, action.payload, newState)
         case (RESET_GAME):
             return []
+        case (RESET_LOCAL):
+            return INITIAL_STATE
         default:
             return state;
     }

@@ -38,10 +38,15 @@ const Game = (props) => {
     }
     
     useEffect(() => {
-        props.resetGame()
+        props.setOnline(props.online)
+        if (props.online) {
+            props.resetGame()
+        } else {
+            props.resetLocal()
+        }
         document.addEventListener('keydown', keydownListener)
         if (props.online) {
-            client = new W3CWebSocket('ws://localhost:3001');
+            client = new W3CWebSocket('ws://52.90.71.55:3001');
             client.onopen = (...parameters) => {
                 client.send(JSON.stringify({
                     type: "game_info"
@@ -139,7 +144,7 @@ const Game = (props) => {
                 <Button variant="secondary" onClick={handleClose}>
                     No
                 </Button>
-                <Button variant="primary" onClick={props.resetGame}>
+                <Button variant="primary" onClick={props.resetLocal}>
                     Yes
                 </Button>
             </Modal.Footer>
