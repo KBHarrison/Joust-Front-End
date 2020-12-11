@@ -149,10 +149,12 @@ const Game = (props) => {
             )
         })}
         <div className="game-box">
-            <Character
-            id={0} />
-            <Character 
-            id={1} />
+            {props.position.map((player, i) => {
+                return (
+                    <Character
+                        id={i} />
+                )
+            })}
         </div>
     </div>)
 
