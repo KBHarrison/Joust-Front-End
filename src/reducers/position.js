@@ -1,4 +1,4 @@
-import { HANDLE_DEATH, HANDLE_KEYPRESS, UPDATE_PLAYER, ADD_PLAYER, INITIALIZE_OFFLINE_STATE, REVERT_POSITION, RESET_GAME } from '../actions/types'
+import { HANDLE_DEATH, HANDLE_KEYPRESS, UPDATE_PLAYER, ADD_PLAYER, INITIALIZE_OFFLINE_STATE, REVERT_POSITION, RESET_GAME, REMOVE_PLAYER } from '../actions/types'
 import { replaceAt } from '../helpers'
 const INITIAL_STATE = [{
         direction: 'ArrowLeft',
@@ -94,7 +94,14 @@ const direction = (state=[], action) => {
                 return [state[0], INITIAL_STATE[1]]
             }
         case (ADD_PLAYER):
-            return [...state, {...action.payload, up: true, dead: false}]
+            let player = state.find((player) => action.payload.id === player.id)
+            if (player === undefined) {
+                return [...state, {...action.payload, up: true, dead: false}]
+            } else {
+                return state
+            }
+        case (REMOVE_PLAYER):
+            return state.filter((player) => player.id !== action.payload)
         case (UPDATE_PLAYER):
             console.log("Receiving position: ", JSON.stringify(action.payload))
             return state.map((player) => player.id === action.payload.id ? {...action.payload, up: !player.up, dead: action.payload.health < 1} : player)

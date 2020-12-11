@@ -6,8 +6,8 @@ export const NEW_GAME = 'new_game'
 export const HANDLE_DEATH = 'handle_death'
 export const TOGGLE_MODAL = 'toggle_modal'
 export const ADD_PLAYER = 'add_player'
+export const REMOVE_PLAYER = 'remove_player'
 export const UPDATE_PLAYER = 'update_player'
 export const INITIALIZE_OFFLINE_STATE = 'initialize_offline_state'
 export const RESET_GAME = 'reset_game'
-
 

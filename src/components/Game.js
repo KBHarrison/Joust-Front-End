@@ -7,6 +7,7 @@ import Heart from '../assets/heart.png'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
+// import Toast from 'react-bootstrap/Toast'
 
 let client;
 let directions = Object.freeze({
@@ -67,6 +68,10 @@ const Game = (props) => {
                     for (let player of data.data) {
                         props.receivePosition(player)
                     }
+                }
+                if (data.source === "close") {
+                    console.log(data.message + ' ' + data.playerID)
+                    props.removePlayer(data.playerID)
                 }
                 if (data.source === "error") {
                     console.error(data.message)
