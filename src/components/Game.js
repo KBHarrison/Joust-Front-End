@@ -60,6 +60,7 @@ const Game = (props) => {
                     }))
                 }
                 if (data.source === "join") {
+                    props.setCurrentMap(data.data.map)
                     for (let player of data.data.players) {
                         props.addPlayer(player)
                     }
@@ -119,6 +120,8 @@ const Game = (props) => {
     if (props.position[0] !== undefined) {
         winner = props.position[0].dead ? 2 : 1
     }
+
+    console.log(props.map.currentMap)
     
     return (
     <div className="grid-container">
@@ -149,6 +152,17 @@ const Game = (props) => {
             )
         })}
         <div className="game-box">
+            {props.map.currentMap.constraints.map((constraint) => {
+                let widthMultiplier = 100 / props.map.currentMap.width
+                let heightMultiplier = 100 / props.map.currentMap.height
+                let left = constraint.x1 === 0 ? 0 : widthMultiplier * (constraint.x1) + '%'
+                let width = constraint.x1 === constraint.x2 ? widthMultiplier + '%' : widthMultiplier * (constraint.x2 - constraint.x1 + 1) + '%'
+                let top = constraint.y1 === 0 ? 0 : heightMultiplier * (constraint.y1 + 1) + '%'
+                let height = constraint.y1 === constraint.y2 ? heightMultiplier + '%' : heightMultiplier * (constraint.y2 - constraint.y1 + 1) + '%'
+                return (
+                    <div style={{left, top, position:'absolute', backgroundColor: 'black', width, height}}></div>
+                )
+            })}
             {props.position.map((player, i) => {
                 return (
                     <Character
@@ -165,6 +179,7 @@ function MapStateToProps(state) {
         health: state.health,
         showModal: state.modal,
         position: state.position,
+        map: state.map
     }
 }
 

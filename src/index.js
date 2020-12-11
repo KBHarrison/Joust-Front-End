@@ -12,9 +12,9 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const initialStore = createStore(
         reducers,
         {},
-        // composeEnhancers(
-        //     applyMiddleware(checkCollision),
-        // )
+        composeEnhancers(
+            // applyMiddleware(checkCollision),
+        )
     )
 
 ReactDOM.render(

@@ -14,8 +14,10 @@ const Character = (props) => {
     const position = props.position[props.id]
     if (position !== undefined) {
         let class_name = "knight " + props.id +  " " + (position.dead ? "" : position.direction)
-        let left = 5*position.position.x - 3 + '%'
-        let top = (5*position.position.y) + '%'
+        let widthMultiplier = props.map.currentMap ? 100 / props.map.currentMap.width : 5
+        let heightMultiplier = props.map.currentMap ? 100 / props.map.currentMap.height : 5
+        let left = widthMultiplier*(position.position.x - 0.5) + '%'
+        let top = heightMultiplier*(position.position.y - 0.5) + '%'
         let height = "40%"
         let src = undefined
         if (props.id % 2 === 0) {
@@ -36,7 +38,8 @@ const Character = (props) => {
 
 function mapStateToProps(state) {
     return {
-        position: state.position
+        position: state.position,
+        map: state.map
     }
 }
 

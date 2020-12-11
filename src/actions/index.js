@@ -1,4 +1,4 @@
-import { HANDLE_KEYPRESS, UPDATE_PLAYER, TOGGLE_MODAL, ADD_PLAYER, INITIALIZE_OFFLINE_STATE, RESET_GAME, REMOVE_PLAYER } from "./types";
+import { HANDLE_KEYPRESS, UPDATE_PLAYER, TOGGLE_MODAL, ADD_PLAYER, INITIALIZE_OFFLINE_STATE, RESET_GAME, REMOVE_PLAYER, SET_CURRENT_MAP } from "./types";
 
 export function handleKeypress(direction) {
     return {
@@ -30,6 +30,13 @@ export function removePlayer(payload) {
 export function addPlayer(payload) {
     return {
         type: ADD_PLAYER,
+        payload
+    }
+}
+
+export function setCurrentMap(payload) {
+    return {
+        type: SET_CURRENT_MAP,
         payload
     }
 }
