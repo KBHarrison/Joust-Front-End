@@ -39,7 +39,11 @@ const Game = (props) => {
     
     useEffect(() => {
         props.setOnline(props.online)
-        props.resetGame()
+        if (props.online) {
+            props.resetGame()
+        } else {
+            props.resetLocal()
+        }
         document.addEventListener('keydown', keydownListener)
         if (props.online) {
             client = new W3CWebSocket('ws://localhost:3001');
@@ -137,7 +141,7 @@ const Game = (props) => {
                 <Button variant="secondary" onClick={handleClose}>
                     No
                 </Button>
-                <Button variant="primary" onClick={props.resetGame}>
+                <Button variant="primary" onClick={props.resetLocal}>
                     Yes
                 </Button>
             </Modal.Footer>
