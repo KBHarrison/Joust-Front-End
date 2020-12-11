@@ -46,7 +46,7 @@ const Game = (props) => {
         }
         document.addEventListener('keydown', keydownListener)
         if (props.online) {
-            client = new W3CWebSocket('ws://localhost:3001');
+            client = new W3CWebSocket('ws://52.90.71.55:3001');
             client.onopen = (...parameters) => {
                 client.send(JSON.stringify({
                     type: "game_info"
