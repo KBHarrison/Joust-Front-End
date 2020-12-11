@@ -38,6 +38,7 @@ const Game = (props) => {
     }
     
     useEffect(() => {
+        props.setOnline(props.online)
         props.resetGame()
         document.addEventListener('keydown', keydownListener)
         if (props.online) {

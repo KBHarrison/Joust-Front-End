@@ -10,4 +10,4 @@ export const REMOVE_PLAYER = 'remove_player'
 export const UPDATE_PLAYER = 'update_player'
 export const INITIALIZE_OFFLINE_STATE = 'initialize_offline_state'
 export const RESET_GAME = 'reset_game'
-
+export const ONLINE = 'online'
